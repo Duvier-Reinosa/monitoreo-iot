@@ -17,8 +17,6 @@ const keys = {
         }
 }
 
-console.log('test')
-
 
 export const db = new Pool(keys);
 

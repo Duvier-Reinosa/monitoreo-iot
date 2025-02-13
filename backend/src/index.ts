@@ -8,6 +8,7 @@ import dotenv from 'dotenv';
 import { db } from "./database";
 
 import agentRoutes from './routes/agentRoutes';
+import webSocket from './libs/webSocket';
 
 dotenv.config({path: '.env'});
 
@@ -36,9 +37,9 @@ export class Server {
     }
 
     routes() {
-        this.app.use('/', (req, res) => {
-            res.send('Hello World');
-        });
+        // this.app.use('/', (req, res) => {
+        //     res.send('Hello World');
+        // });
 
         this.app.use('/api/agent', agentRoutes);
 
@@ -48,12 +49,13 @@ export class Server {
         try {
             const server = this.app.listen(this.app.get('port'), () => {
                 console.log(chalk.blue(`\nServer corriendo en: ${this.app.get('port')}`));
+                webSocket(server);
             });
         } catch (error) {
             console.error('Error al iniciar el servidor:', error);
         }
 
-        //web socket para el real time`
+        //web socket para el real time
     }
 }
 

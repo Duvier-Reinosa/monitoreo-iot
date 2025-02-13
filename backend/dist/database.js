@@ -19,7 +19,6 @@ const keys = {
         ca: process.env.CA_CERTIFICATE
     }
 };
-console.log('test');
 exports.db = new pg_1.Pool(keys);
 exports.db.connect((err, client, release) => {
     if (err) {

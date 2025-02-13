@@ -10,6 +10,7 @@ const cors_1 = __importDefault(require("cors"));
 const chalk_1 = __importDefault(require("chalk"));
 const dotenv_1 = __importDefault(require("dotenv"));
 const agentRoutes_1 = __importDefault(require("./routes/agentRoutes"));
+const webSocket_1 = __importDefault(require("./libs/webSocket"));
 dotenv_1.default.config({ path: '.env' });
 const corsOptions = {
     "origin": '*',
@@ -31,21 +32,22 @@ class Server {
         this.app.use(bodyParser.urlencoded({ limit: "50000mb", extended: true, parameterLimit: 50000 }));
     }
     routes() {
-        this.app.use('/', (req, res) => {
-            res.send('Hello World');
-        });
+        // this.app.use('/', (req, res) => {
+        //     res.send('Hello World');
+        // });
         this.app.use('/api/agent', agentRoutes_1.default);
     }
     start() {
         try {
             const server = this.app.listen(this.app.get('port'), () => {
                 console.log(chalk_1.default.blue(`\nServer corriendo en: ${this.app.get('port')}`));
+                (0, webSocket_1.default)(server);
             });
         }
         catch (error) {
             console.error('Error al iniciar el servidor:', error);
         }
-        //web socket para el real time`
+        //web socket para el real time
     }
 }
 exports.Server = Server;
