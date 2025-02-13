@@ -10,9 +10,22 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.agentController = void 0;
+const database_1 = require("../database");
 class AgentController {
     createLogAgent(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
+            const { agent_name, log_value } = req.body;
+            if (!agent_name || !log_value) {
+                return res.status(400).json({ message: 'Invalid request' });
+            }
+            try {
+                const newAgent = yield database_1.db.query('INSERT INTO agent_logs (agent_name, log_value) VALUES ($1, $2) RETURNING *', [agent_name, log_value]);
+                return res.status(201).json(newAgent.rows[0]);
+            }
+            catch (error) {
+                console.error(error);
+                return res.status(500).json({ message: 'Internal server error' });
+            }
         });
     }
 }

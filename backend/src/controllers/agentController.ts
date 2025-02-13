@@ -3,7 +3,19 @@ import { db } from '../database';
 
 class AgentController {
     public async createLogAgent(req: Request, res: Response): Promise<Response> {
+        const { agent_name, log_value } = req.body;
 
+        if (!agent_name || !log_value) {
+            return res.status(400).json({ message: 'Invalid request' });
+        }
+
+        try {
+            const newAgent = await db.query('INSERT INTO agent_logs (agent_name, log_value) VALUES ($1, $2) RETURNING *', [agent_name, log_value]);
+            return res.status(201).json(newAgent.rows[0]);
+        } catch (error) {
+            console.error(error);
+            return res.status(500).json({ message: 'Internal server error' });
+        }
     }
 }
 
