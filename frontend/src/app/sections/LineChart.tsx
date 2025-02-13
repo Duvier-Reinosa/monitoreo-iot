@@ -10,7 +10,9 @@ import {
     Tooltip,
     Legend,
   } from 'chart.js';
+import { useEffect } from 'react';
 import { Line } from 'react-chartjs-2';
+import socket from 'socket.io-client'
 
 ChartJS.register(
     CategoryScale,
@@ -58,6 +60,17 @@ export const data = {
 
 
 function Linechart() {
+  const socketIo = socket('http://localhost:3033');
+
+  useEffect(() => {
+  }, []);
+  
+  socketIo.connect().on('logValue', (data:any) => {
+    console.log(data);
+  });
+    
+
+
     return (
         <div className='mt-100 w-2/3'>
             <h1 className='font-bold text-4xl m-auto w-52'>Monitor IoT</h1>
