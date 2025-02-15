@@ -8,7 +8,7 @@ import dotenv from 'dotenv';
 import { db } from "./database";
 
 import agentRoutes from './routes/agentRoutes';
-import webSocket from './libs/webSocket';
+import websocket from './libs/webSocket';
 
 dotenv.config({path: '.env'});
 
@@ -49,7 +49,7 @@ export class Server {
         try {
             const server = this.app.listen(this.app.get('port'), () => {
                 console.log(chalk.blue(`\nServer corriendo en: ${this.app.get('port')}`));
-                webSocket(server);
+                websocket.initialize(server);
             });
         } catch (error) {
             console.error('Error al iniciar el servidor:', error);

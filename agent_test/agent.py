@@ -8,7 +8,7 @@ import random
 def test_agent():
     url = "http://localhost:3033/api/agent"
     agent_name = "Agente de Temperatura"
-    for i in range(10):
+    while True:
         temperature = random.randint(0, 100)
         data = {
             "agent_name": agent_name,
