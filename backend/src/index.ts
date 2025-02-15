@@ -54,8 +54,6 @@ export class Server {
         } catch (error) {
             console.error('Error al iniciar el servidor:', error);
         }
-
-        //web socket para el real time
     }
 }
 

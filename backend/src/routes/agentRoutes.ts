@@ -11,7 +11,7 @@ class AgentRoutes {
     }
 
     routes() {
-        // this.router.get('/', this.agentController.getAgents);
+        this.router.get('/lastLogs', this.agentController.lastLogs);
         // this.router.get('/:id', this.agentController.getAgent);
         this.router.post('/', this.agentController.createLogAgent);
         // this.router.put('/:id', this.agentController.updateAgent);

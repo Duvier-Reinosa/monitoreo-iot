@@ -27,6 +27,16 @@ class AgentController {
             return res.status(500).json({ message: 'Internal server error' });
         }
     }
+
+    public async lastLogs(req: Request, res: Response): Promise<Response> {
+        try {
+            const logs = await db.query('SELECT * FROM agent_logs ORDER BY id DESC LIMIT 10');
+            return res.json(logs.rows);
+        } catch (error) {
+            console.error('Database error:', error);
+            return res.status(500).json({ message: 'Internal server error' });
+        }
+    }
 }
 
 export const agentController = new AgentController();
