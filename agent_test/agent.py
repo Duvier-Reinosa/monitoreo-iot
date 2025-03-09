@@ -6,7 +6,7 @@ import time
 import random
 
 def test_agent():
-    url = "http://localhost:3033/api/agent"
+    url = "http://143.198.31.104:3033/api/agent"
     agent_name = "Agente de Temperatura"
     while True:
         temperature = random.randint(0, 100)
@@ -19,7 +19,7 @@ def test_agent():
         }
         response = requests.post(url, data=json.dumps(data), headers=headers)
         print(response.text)
-        time.sleep(1)
+        time.sleep(4)
 
 if __name__ == "__main__":
     test_agent()
